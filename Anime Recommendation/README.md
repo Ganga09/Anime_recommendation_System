@@ -5,7 +5,7 @@ Anime Recommendation System :
 recommends 10 related animes to the input title based on title, type and genre.
 
 ## Load data
-
+<>
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -15,7 +15,7 @@ import warnings
 warnings.filterwarnings('ignore')
 anime=pd.read_csv('/content/drive/MyDrive/Project_dataset/anime.csv')
 anime
-
+<>
 ## DATA:
 
 *   7 columns: 'anime_id', 'name', 'genre', 'type', 'episodes', 'rating', 'members'
@@ -23,7 +23,8 @@ anime
 *  rows=12294
 
 
-
+..
+#
 print("Dataset, a glimpse:","\n Head\n",anime.head(),"\Tail: \n",anime.tail())
 
 print("Shape: ",anime.shape)
