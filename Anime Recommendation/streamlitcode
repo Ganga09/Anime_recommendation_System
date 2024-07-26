@@ -1,0 +1,64 @@
+from fuzzywuzzy import process
+import pandas as pd
+import streamlit as st
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Load the anime dataset
+anime = pd.read_csv('datasepath of anime.csv')
+anime["rating"] = anime["rating"].fillna(anime["rating"].mean())
+anime["genre"] = anime["genre"].fillna(anime["genre"].mode()[0])
+anime["type"] = anime["type"].fillna(anime["type"].mode()[0])
+
+# Create the string feature for TF-IDF
+def get_string(row):
+    result_string = row.genre + ", " + row.type
+    result_string = result_string.replace(', ', ' ')
+    return result_string
+
+anime['string'] = anime.apply(get_string, axis=1)
+
+# Vectorize the string feature
+tfidf = TfidfVectorizer(max_features=3000)
+vector = tfidf.fit_transform(anime['string'])
+# Series
+anime2idx=pd.Series(anime.index,index=anime['name'])
+
+# cosinesimilarity
+def recommended_anime_cosine(title):
+    try:
+        idx = anime2idx[title]
+    except KeyError:
+        matches = process.extract(title, anime['name'].tolist(), limit=1)
+        if matches and matches[0][1] >= 80:
+            similar_name = matches[0][0]
+            return f"Did you mean '{similar_name}'?"
+        return "Anime not found."
+    if isinstance(idx, pd.Series):
+        idx = idx.iloc[0]
+    qy = vector[idx]
+    scores = cosine_similarity(qy, vector).flatten()
+    recommended_idx = (-scores).argsort()[1:11]  
+    return anime['name'].iloc[recommended_idx].tolist()
+
+ # Define the Streamlit app
+def main():
+    st.title('Anime Recommendation System')
+    options = anime['name'].tolist()
+    text_input = st.selectbox('Select an Anime Title:', options)
+    #text_input = st.text_input('Enter title:')
+    if st.button('View Recommendations'):
+        result = recommended_anime_cosine(text_input)
+        with st.expander("Recommendations"):
+            if isinstance(result, str):  # Check if the result is a string (error message)
+                st.write(result)
+            else:
+                for anime_title in result:
+                    st.write(anime_title)
+    st.write("TOP 10 Animes:")
+    st.image('path of top animes.png')
+    st.write("Types of Animes:")
+    st.image('path of types of animes.png')
+
+if __name__ == "__main__":
+    main()
