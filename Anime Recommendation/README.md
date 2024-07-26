@@ -1,7 +1,7 @@
 Anime Recommendation System :
 recommends 10 related animes to the input title based on title, type and genre.
 
-Load data
+#Load data
 
 
 import numpy as np
