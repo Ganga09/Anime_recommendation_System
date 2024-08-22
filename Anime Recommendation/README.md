@@ -1,6 +1,8 @@
 Anime Recommendation System: 
 
 > recommends 10 related animes to the input title based on title, type and genre.
+> ![anime](https://github.com/user-attachments/assets/65354154-15ec-42fb-9d48-984499f7e8df)
+
 
 This project is an Anime recommendation system designed to suggest 10 anime titles closely related to a user's input. The system analyzes the input title and utilizes Cosine Similarity to measure the textual similarity between the input and other anime titles, types, and genres in the database.
 
