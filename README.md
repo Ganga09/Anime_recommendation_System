@@ -2,7 +2,7 @@ Anime Recommendation System:
 Ganga V Saji
 
 > recommends 10 related animes to the input title based on title, type and genre.
-> ![anime](https://github.com/user-attachments/assets/65354154-15ec-42fb-9d48-984499f7e8df)
+> ![anime](https://github.com/user-attachments/assets/65354154-15ec-42fb-9d48-984499f7e8df) 
 
 
 This project is an Anime recommendation system designed to suggest 10 anime titles closely related to a user's input. The system analyzes the input title and utilizes Cosine Similarity to measure the textual similarity between the input and other anime titles, types, and genres in the database.
@@ -23,3 +23,8 @@ Anime.csv
 5. episodes - how many episodes in this show and 1 for movie.
 6. rating - an average rating out of 10 for this anime.
 7. members - number of community members that are in this anime's "group".
+
+
+
+
+   ...(The image shown edited for the title and not the exact output )
